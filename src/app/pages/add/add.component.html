@@ -1,0 +1,94 @@
+ <app-nav title="Ajouter un chéque"></app-nav>
+
+<ion-content>
+
+  <p>Payer pour</p>
+ <form [formGroup]="authForm" >
+  <ion-input formControlName="username"  ngDefaultControl
+    placeholder="Nom,Prénom"
+    class="inpt"
+
+  ></ion-input>
+  <div *ngIf="authForm.get('username').errors&& authForm.get('username').dirty">
+ <p class="errors"*ngIf ="authForm.get('username').errors.required"> <ion-icon name="close-circle-outline"></ion-icon> Valeur Est Requise</p>
+  <p class="errors"*ngIf ="authForm.get('username').errors.minlength"> <ion-icon name="close-circle-outline"></ion-icon>La longueur doit être supérieur à 3</p>
+   <p class="errors"*ngIf ="authForm.get('username').errors.maxlength"> <ion-icon name="close-circle-outline"></ion-icon>La longueur doit être inférieur à 20 </p>
+      <p class="errors"*ngIf ="authForm.get('username').errors.pattern"> <ion-icon name="close-circle-outline"></ion-icon>La valeur doit être composée seulement par des lettres et des nombres</p>
+  </div>
+
+  <p>Montant</p>
+  <div class="container">
+  <input  placeholder="0.000" class="inpt1" formControlName="montant"  ngDefaultControl>
+  <div class="dinpt" >DNT</div>
+  </div>
+   <div *ngIf="authForm.get('montant').errors&& authForm.get('montant').dirty">
+ <p class="errors"*ngIf ="authForm.get('montant').errors.required"> <ion-icon name="close-circle-outline"></ion-icon> Valeur Est Requise</p>
+
+  </div>
+  <p>Date limite pour payer</p>
+
+  <div style="display: flex">
+
+    <ion-select class="inpt sma" placeholder="MM" (ionChange)="onchangeM($event.target.value)" formControlName="mnthSelected"  ngDefaultControl  >
+
+      <ion-select-option
+        *ngFor="let month of months; let i = index"
+        [value]="month.m"
+
+        >{{ month.m }}</ion-select-option
+      >
+
+
+    </ion-select>
+
+
+
+
+    <ion-select class="inpt sma" placeholder="JJ"  (ionChange)="onchangeJ($event.target.value)" formControlName="jrSelected" ngDefaultControl >
+      <ion-select-option *ngFor="let jour of jours">{{
+        jour
+      }}</ion-select-option>
+    </ion-select>
+    <ion-select class="inpt smed" placeholder="AAAA" (ionChange)="onchangeY($event.target.value)" formControlName="anSelected" ngDefaultControl>
+      <ion-select-option *ngFor ="let year of years">{{year}}</ion-select-option>
+    </ion-select>
+  </div>
+    <ng-container *ngIf="authForm.errors">
+   <p *ngIf="authForm.errors.dateNonValide" class="errors" ><ion-icon name="close-circle-outline"></ion-icon>Vérifier la date entrer</p>
+   </ng-container>
+  <p>Date de rappel</p>
+    <div style="display: flex">
+
+
+
+    <ion-select   class="inpt sma" placeholder="MM"   (ionChange)="onchangeMR($event.target.value)" formControlName="mnthRSelected"  ngDefaultControl>
+      <ion-label style="position:fixed;">Mois:</ion-label>
+      <ion-select-option
+        *ngFor="let month of months; let i = index"
+        [value]="month.m"
+
+        >{{ month.m }}</ion-select-option
+      >
+    </ion-select>
+
+    <ion-select  class="inpt sma" placeholder="JJ"  (ionChange)="onchangeJR($event.target.value)"  formControlName="jrRSelected" ngDefaultControl>
+      <ion-select-option *ngFor="let jour of joursR">{{
+        jour
+      }}</ion-select-option>
+    </ion-select>
+    <ion-select class="inpt smed" placeholder="AAAA" (ionChange)="onchangeYR($event.target.value)" formControlName="anRSelected" ngDefaultControl>
+      <ion-select-option *ngFor ="let year of years">{{year}}</ion-select-option>
+    </ion-select>
+  </div>
+    <ng-container *ngIf="authForm.errors">
+   <p *ngIf="authForm.errors.dateRNonValide" class="errors" ><ion-icon name="close-circle-outline"></ion-icon>Vérifier la date entrer</p>
+   </ng-container>
+
+
+
+  </form>
+
+  <ion-button class="btn"  [disabled]="authForm.invalid" (click)="onClick()"> <ion-icon name="save-outline"></ion-icon> ENREGISTRER</ion-button>
+
+
+</ion-content>

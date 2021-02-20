@@ -1,0 +1,26 @@
+<ion-app>
+  <ion-menu contentId="menu">
+    <ion-content>
+      <div class="menu-header-bg"></div>
+
+      <div class="header-content">
+<img src="assets/Sans titre.png" alt="" />
+      <ion-label>
+        <h2> Mr, Hassine Adem</h2>
+        <p>Bienvenue dans votre compte</p>
+      </ion-label>
+      </div>
+      <div class="btn">
+        <ion-button (click)="changeRouter()"> <ion-icon name="add-outline"></ion-icon> Ajouter un chéque</ion-button>
+      </div>
+      <ion-list class="menu-items" >
+        <ion-item class="men-item" *ngFor="let page of pages" [routerLinkActiveOptions]="{exact:true}" [routerLink]="page.url" routerLinkActive="active-item" >
+      <ion-icon [name]="page.icon"></ion-icon> <p>{{page.title}}</p>
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="menu"></ion-router-outlet>
+</ion-app>
